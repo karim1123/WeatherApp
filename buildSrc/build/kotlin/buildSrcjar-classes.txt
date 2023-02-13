@@ -1,0 +1,1 @@
+C:\Users\user\Documents\GitHub\WeatherApp\buildSrc\build\classes\kotlin\main\DefaultConfig.class;C:\Users\user\Documents\GitHub\WeatherApp\buildSrc\build\classes\kotlin\main\Libs.class;C:\Users\user\Documents\GitHub\WeatherApp\buildSrc\build\classes\kotlin\main\Releases.class;C:\Users\user\Documents\GitHub\WeatherApp\buildSrc\build\classes\kotlin\main\Versions.class
