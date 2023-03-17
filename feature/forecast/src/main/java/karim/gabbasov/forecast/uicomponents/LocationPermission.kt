@@ -8,7 +8,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import karim.gabbasov.forecast.ForecastViewModel
 import karim.gabbasov.ui.R.string.location_rationale
 import karim.gabbasov.ui.ui.CustomPermissionDialog
 
@@ -16,8 +15,8 @@ const val MINIMUM_REQUIRED_NUMBER_OF_PERMISSION = 1
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun LocationPermission(
-    viewModel: ForecastViewModel
+internal fun LocationPermission(
+    loadForecastInfo: () -> Unit
 ) {
     val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
@@ -31,7 +30,7 @@ fun LocationPermission(
         locationPermissionsState.allPermissionsGranted ||
         locationPermissionsState.revokedPermissions.size == MINIMUM_REQUIRED_NUMBER_OF_PERMISSION
     ) {
-        viewModel.loadWeatherInfo()
+        loadForecastInfo.invoke()
     } else {
         Column {
             if (openDialogCustom.value) {

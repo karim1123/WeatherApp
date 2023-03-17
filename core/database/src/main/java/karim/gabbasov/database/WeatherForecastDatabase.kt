@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [WeatherForecastEntity::class], version = 1)
-abstract class WeatherForecastDatabase : RoomDatabase() {
+internal abstract class WeatherForecastDatabase : RoomDatabase() {
 
-    abstract fun weatherData(): WeatherForecastDao
+    internal abstract fun weatherData(): WeatherForecastDao
 
-    companion object {
+    internal companion object {
         /**
          * Builds the database for usage.
          */

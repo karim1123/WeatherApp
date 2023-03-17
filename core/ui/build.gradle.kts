@@ -33,9 +33,9 @@ android {
 dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:model"))
+    implementation(project(":core:designsystem"))
 
     implementation(Libs.composeUi)
-    implementation(Libs.composeMaterial)
     implementation(Libs.composeMaterial3)
     implementation(Libs.composeUiTooling)
     implementation(Libs.accompanistPermissions)

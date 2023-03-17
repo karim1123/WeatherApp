@@ -9,13 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import karim.gabbasov.common.di.util.AppCoroutineDispatchers
+import karim.gabbasov.common.util.AppCoroutineDispatchers
 import karim.gabbasov.data.repository.LocationResult
 import karim.gabbasov.data.repository.LocationTracker
 import karim.gabbasov.data.repository.WeatherApiResult
 import karim.gabbasov.data.repository.WeatherRepository
-import karim.gabbasov.ui.mapper.EntityToDisplayableWeatherInfo
-import karim.gabbasov.ui.model.DisplayableWeatherInfo
+import karim.gabbasov.feature_api.features.DetailedForecastFeatureApi
+import karim.gabbasov.forecast.mapper.EntityToDisplayableWeatherInfo
+import karim.gabbasov.forecast.model.DisplayableWeatherInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOn
@@ -23,12 +24,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ForecastViewModel @Inject constructor(
+internal class ForecastViewModel @Inject constructor(
     private val application: Application,
     private val repository: WeatherRepository,
     private val locationTracker: LocationTracker,
     private val dispatcher: AppCoroutineDispatchers,
-    private val mapper: EntityToDisplayableWeatherInfo
+    private val mapper: EntityToDisplayableWeatherInfo,
+    val detailedForecastFeatureApi: DetailedForecastFeatureApi
 ) : ViewModel() {
 
     private val _forecastUiState: MutableStateFlow<ForecastUiState> =
@@ -111,7 +113,7 @@ class ForecastViewModel @Inject constructor(
 /**
  * Provides the status of downloading weather forecast data request.
  */
-sealed interface ForecastUiState {
+internal sealed interface ForecastUiState {
 
     object Nothing : ForecastUiState
 
@@ -134,7 +136,7 @@ sealed interface ForecastUiState {
     object Loading : ForecastUiState
 }
 
-enum class ForecastErrors {
+internal enum class ForecastErrors {
     PermissionNotGranted,
     GpsIsTurnedOff,
     UnknownLocationError,

@@ -8,7 +8,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class LocationTrackerImpl @Inject constructor(
+internal class LocationTrackerImpl @Inject constructor(
     private val locationClient: FusedLocationProviderClient
 ) : LocationTracker {
 

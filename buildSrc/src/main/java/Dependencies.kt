@@ -13,18 +13,21 @@ object DefaultConfig {
 object Versions {
     const val JETPACK_NAVIGATION_VERSION = "2.5.3"
     const val ANDROIDX_CORE_VERSION = "1.9.0"
-    const val LIFECYCLE_VERSION = "2.5.1"
+    const val LIFECYCLE_VERSION = "2.6.0"
     const val JVM_VERSION = "1.8"
+
+    const val IMMUTABLE_COLLECTIONS = "0.3.5"
 
     const val COROUTINES_VERSION = "1.6.4"
 
-    const val COMPOSE_VERSION = "1.3.2"
+    const val COMPOSE_VERSION = "1.3.3"
     const val COMPOSE_MATERIAL_VERSION = "1.3.1"
     const val COMPOSE_MATERIAL3_VERSION = "1.0.1"
     const val COMPOSE_ACTIVITY_VERSION = "1.6.1"
-    const val COMPOSE_RUNTIME = "2.6.0-beta01"
+    const val COMPOSE_RUNTIME = "2.6.0"
     const val COMPOSE_NAVIGATION = "2.5.3"
     const val PERMISSIONS = "0.28.0"
+    const val COMPOSE_FOUNDATION = "1.4.0-rc01"
 
     const val HILT_VERSION = "2.44.2"
     const val HILT_COMPILER_VERSION = "1.0.0"
@@ -51,6 +54,8 @@ object Versions {
 }
 
 object Libs {
+    const val immutableCollections = "org.jetbrains.kotlinx:kotlinx-collections-immutable:${Versions.IMMUTABLE_COLLECTIONS}"
+
     // Jetpack Compose
     const val composeUi = "androidx.compose.ui:ui:${Versions.COMPOSE_VERSION}"
     const val composeMaterial = "androidx.compose.material:material:${Versions.COMPOSE_MATERIAL_VERSION}"
@@ -60,6 +65,7 @@ object Libs {
     const val composeLifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.LIFECYCLE_VERSION}"
     const val accompanistPermissions = "com.google.accompanist:accompanist-permissions:${Versions.PERMISSIONS}"
     const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
+    const val composeFoundation = "androidx.compose.foundation:foundation:${Versions.COMPOSE_FOUNDATION}"
 
     // Dagger - Hilt
     const val hiltAndroid =  "com.google.dagger:hilt-android:${Versions.HILT_VERSION}"

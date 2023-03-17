@@ -6,20 +6,23 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import karim.gabbasov.feature_api.features.ForecastFeatureApi
 import karim.gabbasov.forecast.ForecastScreenRoute
+import javax.inject.Inject
 
-class ForecastNavigation : ForecastFeatureApi {
+private const val ROUTE = "forecast"
 
-    private val route = "forecast"
+class ForecastNavigation @Inject constructor() : ForecastFeatureApi {
 
-    override fun forecastRoute() = route
+    override fun forecastRoute() = ROUTE
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
         modifier: Modifier
     ) {
-        navGraphBuilder.composable(route) {
-            ForecastScreenRoute(modifier = modifier)
+        navGraphBuilder.composable(ROUTE) {
+            ForecastScreenRoute(
+                navController = navController
+            )
         }
     }
 }
