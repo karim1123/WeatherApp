@@ -1,29 +1,28 @@
 package karim.gabbasov.weatherapp.di
 
-import android.app.Application
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import karim.gabbasov.detailed_forecast.navigation.DetailedForecastNavigation
+import karim.gabbasov.feature_api.features.DetailedForecastFeatureApi
 import karim.gabbasov.feature_api.features.ForecastFeatureApi
 import karim.gabbasov.forecast.navigation.ForecastNavigation
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+private interface AppModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
-        return LocationServices.getFusedLocationProviderClient(app)
-    }
+    fun bindsFeaturesApi(
+        forecastNavigation: ForecastNavigation
+    ): ForecastFeatureApi
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideFeaturesApi(): ForecastFeatureApi {
-        return ForecastNavigation()
-    }
+    fun bindsDetailedForecastFeatureApi(
+        detailedForecastNavigation: DetailedForecastNavigation
+    ): DetailedForecastFeatureApi
 }

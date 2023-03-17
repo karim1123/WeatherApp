@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class WeatherRepositoryImpl @Inject constructor(
+internal class WeatherRepositoryImpl @Inject constructor(
     private val weatherApi: WeatherApi,
     private val weatherDao: WeatherForecastDao,
     private val mapper: WeatherEntityMappers

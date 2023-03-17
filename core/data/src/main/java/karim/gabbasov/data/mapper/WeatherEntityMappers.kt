@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-const val HOURS_IN_DAY = 24
+private const val HOURS_IN_DAY = 24
 
-class WeatherEntityMappers @Inject constructor() {
+internal class WeatherEntityMappers @Inject constructor() {
 
     fun toWeatherForecastEntity(dto: WeatherDataDto): List<WeatherForecastEntity> {
         dto.apply {

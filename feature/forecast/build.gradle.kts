@@ -36,14 +36,16 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:feature-api"))
+    implementation(project(":core:designsystem"))
     implementation(project(":core:ui"))
 
     implementation(Libs.composeUi)
-    implementation(Libs.composeMaterial)
+    implementation(Libs.composeMaterial3)
     implementation(Libs.composeUiTooling)
     implementation(Libs.composeRuntime)
     implementation(Libs.composeLifecycleViewModel)
     implementation(Libs.accompanistPermissions)
+    debugImplementation(Libs.composeTestingUiTooling)
 
     implementation(Libs.hiltAndroid)
     kapt(Libs.hiltAndroidCompiler)

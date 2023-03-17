@@ -1,73 +1,69 @@
 package karim.gabbasov.forecast.uicomponents
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import karim.gabbasov.designsystem.theme.LightGrey
+import karim.gabbasov.designsystem.theme.White
 import karim.gabbasov.ui.R
-import karim.gabbasov.ui.R.string.hourly_forecast_title
-import karim.gabbasov.ui.model.HourlyWeatherData
-import karim.gabbasov.ui.model.MonthNames
-import karim.gabbasov.ui.model.WeatherCondition
+import karim.gabbasov.forecast.model.HourlyWeatherData
+import karim.gabbasov.ui.util.MonthNames
+import karim.gabbasov.ui.util.WeatherCondition
 import karim.gabbasov.ui.model.WeatherType
 
 @Composable
-fun HourlyWeatherForecast(
+internal fun HourlyWeatherForecast(
     hourlyWeather: List<HourlyWeatherData>,
     modifier: Modifier = Modifier,
-    textColor: Color
+    textColor: Color,
+    secondTextColor: Color
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
     ) {
-        Text(
-            text = stringResource(hourly_forecast_title),
-            fontSize = 20.sp,
-            color = textColor
-        )
-        Spacer(modifier = Modifier.height(16.dp))
         LazyRow(content = {
             items(hourlyWeather) { weatherData ->
                 when (weatherData) {
                     is HourlyWeatherData.ElementsOfWeather -> ElementsOfWeatherDisplay(
                         weatherData = weatherData,
                         modifier = Modifier
-                            .height(120.dp),
-                        textColor = textColor
+                            .height(110.dp),
+                        textColor = textColor,
+                        secondTextColor = secondTextColor
                     )
                     is HourlyWeatherData.CurrentHour -> CurrentHourWeatherDisplay(
                         weatherData = weatherData,
                         modifier = Modifier
-                            .height(120.dp)
+                            .height(110.dp)
                             .padding(horizontal = 16.dp),
-                        textColor = textColor
+                        textColor = textColor,
+                        secondTextColor = secondTextColor
                     )
                     is HourlyWeatherData.FirstHourOfNewDay -> FirstHourOfNewDayWeatherDisplay(
                         weatherData = weatherData,
                         modifier = Modifier
-                            .height(120.dp)
+                            .height(110.dp)
                             .padding(horizontal = 16.dp),
-                        textColor = textColor
+                        textColor = textColor,
+                        secondTextColor = secondTextColor
                     )
                     is HourlyWeatherData.DefaultHour -> HourlyWeatherDisplay(
                         weatherData = weatherData,
                         modifier = Modifier
-                            .height(120.dp)
+                            .height(110.dp)
                             .padding(horizontal = 16.dp),
-                        textColor = textColor
+                        textColor = textColor,
+                        secondTextColor = secondTextColor
                     )
                 }
             }
@@ -77,9 +73,10 @@ fun HourlyWeatherForecast(
 
 @Preview(showBackground = true, backgroundColor = 0xFF102840)
 @Composable
-fun PreviewHourlyWeatherForecast() {
+private fun PreviewHourlyWeatherForecast() {
     HourlyWeatherForecast(
-        textColor = Color.White,
+        textColor = White,
+        secondTextColor = LightGrey,
         hourlyWeather = listOf(
             HourlyWeatherData.ElementsOfWeather(
                 windSpeed = 8,

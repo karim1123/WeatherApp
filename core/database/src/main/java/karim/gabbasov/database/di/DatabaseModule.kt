@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DatabaseModule {
+private object DatabaseModule {
 
     @Provides
     @Singleton
@@ -20,5 +20,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideSeries(db: WeatherForecastDatabase) = db.weatherData()
+    fun provideWeather(db: WeatherForecastDatabase) = db.weatherData()
 }

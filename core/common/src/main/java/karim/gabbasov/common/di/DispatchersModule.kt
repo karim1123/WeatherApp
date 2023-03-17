@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import karim.gabbasov.common.di.util.AppCoroutineDispatchers
+import karim.gabbasov.common.util.AppCoroutineDispatchers
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 

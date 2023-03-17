@@ -17,10 +17,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,22 +31,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import karim.gabbasov.designsystem.theme.LightGrey
+import karim.gabbasov.designsystem.theme.DarkRed
+import karim.gabbasov.designsystem.theme.LightRed
+import karim.gabbasov.designsystem.theme.WeatherAppTheme
+import karim.gabbasov.designsystem.theme.White
 import karim.gabbasov.ui.R.drawable.ic_mobile_tower
 import karim.gabbasov.ui.R.string.no_network_error_subtitle
 import karim.gabbasov.ui.R.string.no_network_error_title
 import karim.gabbasov.ui.R.string.snackbar_network_error_content
 import karim.gabbasov.ui.R.string.update
-import karim.gabbasov.ui.theme.DarkBlue
-import karim.gabbasov.ui.theme.LightGrey
-import karim.gabbasov.ui.theme.RedDark
-import karim.gabbasov.ui.theme.RedLight
-import karim.gabbasov.ui.theme.White
 
 @Composable
 fun ErrorSnackbar(
@@ -76,13 +78,10 @@ fun ErrorSnackbar(
             )
             Button(
                 modifier = Modifier
-                    .defaultMinSize(minHeight = 60.dp)
+                    .defaultMinSize(minHeight = 70.dp)
                     .wrapContentWidth(),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-                elevation = ButtonDefaults.elevation(
-                    defaultElevation = 0.dp,
-                    pressedElevation = 0.dp
-                ),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                shape = RectangleShape,
                 onClick = {
                     onClick.invoke()
                     !snackbarVisibleState
@@ -112,7 +111,10 @@ fun ErrorCard(
 ) {
     Card(
         modifier = modifier,
-        backgroundColor = DarkBlue
+        colors = CardDefaults.cardColors(
+            containerColor = WeatherAppTheme.colors.currentWeatherCard
+        ),
+        shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -131,23 +133,21 @@ fun ErrorCard(
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = title,
-                color = White
+                color = White,
+                style = WeatherAppTheme.typography.mediumTitle
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = errorMessage,
-                color = LightGrey
+                color = LightGrey,
+                style = WeatherAppTheme.typography.mediumTitle
             )
             Spacer(modifier = Modifier.height(12.dp))
             Button(
                 shape = RoundedCornerShape(20.dp),
                 onClick = { onClick.invoke() },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 contentPadding = PaddingValues(),
-                elevation = ButtonDefaults.elevation(
-                    defaultElevation = 0.dp,
-                    pressedElevation = 0.dp
-                )
             ) {
                 Box(
                     modifier = Modifier
@@ -170,7 +170,7 @@ fun ErrorCard(
 fun PreviewErrorSnackbar() {
     ErrorSnackbar(
         modifier = Modifier,
-        backGroundColor = Brush.horizontalGradient(listOf(RedLight, RedDark)),
+        backGroundColor = Brush.horizontalGradient(listOf(LightRed, DarkRed)),
         textColor = Color.White,
         onClick = { },
         snackbarState = true,
@@ -184,7 +184,7 @@ fun PreviewErrorSnackbar() {
 fun PreviewErrorCard() {
     ErrorCard(
         onClick = {},
-        backGroundColor = Brush.horizontalGradient(listOf(RedLight, RedDark)),
+        backGroundColor = Brush.horizontalGradient(listOf(LightRed, DarkRed)),
         title = stringResource(no_network_error_title),
         errorMessage = stringResource(no_network_error_subtitle),
         icon = ImageVector.vectorResource(ic_mobile_tower),

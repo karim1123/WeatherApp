@@ -23,5 +23,10 @@ fun WeatherNavHost(
             navController = navController,
             modifier = modifier
         )
+        register(
+            viewModel.detailedForecastApi,
+            navController = navController,
+            modifier = modifier
+        )
     }
 }

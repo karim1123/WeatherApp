@@ -1,5 +1,5 @@
 package karim.gabbasov.common
 
-interface Mapper<in FromObject, ToObject> {
+interface Mapper<in FromObject, out ToObject> {
     fun map(fromObject: FromObject): ToObject
 }
