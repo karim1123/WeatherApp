@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import karim.gabbasov.feature_api.features.ForecastFeatureApi
+import karim.gabbasov.api.features.ForecastFeatureApi
 import karim.gabbasov.forecast.ForecastScreenRoute
 import javax.inject.Inject
 

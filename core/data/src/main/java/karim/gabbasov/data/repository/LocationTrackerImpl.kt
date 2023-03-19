@@ -1,6 +1,7 @@
 package karim.gabbasov.data.repository
 
 import android.location.Location
+import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
 import karim.gabbasov.model.data.Coordinates
@@ -39,19 +40,20 @@ internal class LocationTrackerImpl @Inject constructor(
                 when {
                     !lastLocationTask.isSuccessful -> complete(null)
                     lastLocationTask.result == null -> {
-                        getCurrentLocation(complete, Priority.PRIORITY_HIGH_ACCURACY)
+                        getCurrentLocation(complete)
                     }
                     else -> complete(lastLocationTask.result)
                 }
             }
         } catch (e: SecurityException) {
+            Log.d("exception", e.message.toString())
             return complete(null)
         }
     }
 
-    private fun getCurrentLocation(complete: (Location?) -> Unit, priority: Int) {
+    private fun getCurrentLocation(complete: (Location?) -> Unit) {
         try {
-            locationClient.getCurrentLocation(priority, null)
+            locationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
                 .addOnCompleteListener { currentLocationTask ->
                     if (!currentLocationTask.isSuccessful) {
                         complete(null)
@@ -60,6 +62,7 @@ internal class LocationTrackerImpl @Inject constructor(
                     }
                 }
         } catch (e: SecurityException) {
+            Log.d("exception", e.message.toString())
             return complete(null)
         }
     }

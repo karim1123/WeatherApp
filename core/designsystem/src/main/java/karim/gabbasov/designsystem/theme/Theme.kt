@@ -32,7 +32,7 @@ fun darkColors() = WeatherAppColors(
 
 @Composable
 fun WeatherAppTheme(
-    typography: OnlineShopTypography = WeatherAppTheme.typography,
+    typography: WeatherAppTypography = WeatherAppTheme.typography,
     colors: WeatherAppColors = WeatherAppTheme.colors,
     darkColors: WeatherAppColors = darkColors(),
     shapes: WeatherAppShapes = WeatherAppTheme.shapes,
@@ -48,7 +48,8 @@ fun WeatherAppTheme(
         LocalTypography provides typography,
     ) {
         ProvideTextStyle(
-            typography.value.copy(color = WeatherAppTheme.colors.background), content = content
+            typography.value.copy(color = WeatherAppTheme.colors.background),
+            content = content
         )
     }
 }

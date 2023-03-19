@@ -25,13 +25,13 @@ import androidx.compose.ui.unit.sp
 import karim.gabbasov.designsystem.theme.LightGrey
 import karim.gabbasov.designsystem.theme.WeatherAppTheme
 import karim.gabbasov.designsystem.theme.White
+import karim.gabbasov.forecast.model.DisplayableWeatherData
+import karim.gabbasov.forecast.model.HourlyWeatherData
 import karim.gabbasov.ui.R
 import karim.gabbasov.ui.R.string.feels_like
 import karim.gabbasov.ui.R.string.temperature_in_celsius
-import karim.gabbasov.forecast.model.DisplayableWeatherData
-import karim.gabbasov.forecast.model.HourlyWeatherData
-import karim.gabbasov.ui.util.WeatherCondition
 import karim.gabbasov.ui.model.WeatherType
+import karim.gabbasov.ui.util.WeatherCondition
 
 @Composable
 internal fun CurrentWeatherForecastCard(
@@ -99,6 +99,7 @@ internal fun CurrentWeatherForecastCard(
     }
 }
 
+@Suppress("LongMethod")
 @Preview(showBackground = true, backgroundColor = 0xFF102840)
 @Composable
 private fun PreviewWeatherForecastCard() {

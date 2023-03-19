@@ -38,8 +38,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import karim.gabbasov.designsystem.theme.LightGrey
 import karim.gabbasov.designsystem.theme.DarkRed
+import karim.gabbasov.designsystem.theme.LightGrey
 import karim.gabbasov.designsystem.theme.LightRed
 import karim.gabbasov.designsystem.theme.WeatherAppTheme
 import karim.gabbasov.designsystem.theme.White
@@ -49,6 +49,7 @@ import karim.gabbasov.ui.R.string.no_network_error_title
 import karim.gabbasov.ui.R.string.snackbar_network_error_content
 import karim.gabbasov.ui.R.string.update
 
+@Suppress("LongParameterList")
 @Composable
 fun ErrorSnackbar(
     modifier: Modifier,
@@ -99,6 +100,7 @@ fun ErrorSnackbar(
     }
 }
 
+@Suppress("LongParameterList")
 @Composable
 fun ErrorCard(
     modifier: Modifier = Modifier,

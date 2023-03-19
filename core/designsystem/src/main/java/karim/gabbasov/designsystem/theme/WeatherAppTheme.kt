@@ -10,7 +10,7 @@ object WeatherAppTheme {
         @ReadOnlyComposable
         get() = LocalColors.current
 
-    val typography: OnlineShopTypography
+    val typography: WeatherAppTypography
         @Composable
         @ReadOnlyComposable
         get() = LocalTypography.current

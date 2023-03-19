@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel target="11">
+      <module name="build-logic.convention.main" target="11" />
+      <module name="build-logic.convention.test" target="11" />
+      <module name="WeatherApp.build-logic.convention" target="11" />
+      <module name="WeatherApp.build-logic.convention.main" target="11" />
+      <module name="WeatherApp.build-logic.convention.test" target="11" />
+      <module name="WeatherApp.buildSrc" target="11" />
+      <module name="WeatherApp.buildSrc.main" target="11" />
+      <module name="WeatherApp.buildSrc.test" target="11" />
       <module name="WeatherApp.core.test" target="11" />
     </bytecodeTargetLevel>
   </component>

@@ -4,9 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import karim.gabbasov.detailed_forecast.navigation.DetailedForecastNavigation
-import karim.gabbasov.feature_api.features.DetailedForecastFeatureApi
-import karim.gabbasov.feature_api.features.ForecastFeatureApi
+import karim.gabbasov.api.features.DetailedForecastFeatureApi
+import karim.gabbasov.api.features.ForecastFeatureApi
+import karim.gabbasov.detailedforecast.navigation.DetailedForecastNavigation
 import karim.gabbasov.forecast.navigation.ForecastNavigation
 import javax.inject.Singleton
 

@@ -9,12 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import karim.gabbasov.api.features.DetailedForecastFeatureApi
 import karim.gabbasov.common.util.AppCoroutineDispatchers
 import karim.gabbasov.data.repository.LocationResult
 import karim.gabbasov.data.repository.LocationTracker
 import karim.gabbasov.data.repository.WeatherApiResult
 import karim.gabbasov.data.repository.WeatherRepository
-import karim.gabbasov.feature_api.features.DetailedForecastFeatureApi
 import karim.gabbasov.forecast.mapper.EntityToDisplayableWeatherInfo
 import karim.gabbasov.forecast.model.DisplayableWeatherInfo
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -80,14 +80,17 @@ internal class ForecastViewModel @Inject constructor(
                     }
             }
             else -> {
-                if (repository.isBdEmpty()) _forecastUiState.value =
-                    ForecastUiState.Error(error = ForecastErrors.NoNetworkConnection)
-                else repository.weather.flowOn(dispatcher.io).collect { data ->
+                if (repository.isBdEmpty()) {
                     _forecastUiState.value =
-                        ForecastUiState.Success(
-                            weatherInfo = mapper.map(data),
-                            error = ForecastErrors.OutdatedData
-                        )
+                        ForecastUiState.Error(error = ForecastErrors.NoNetworkConnection)
+                } else {
+                    repository.weather.flowOn(dispatcher.io).collect { data ->
+                        _forecastUiState.value =
+                            ForecastUiState.Success(
+                                weatherInfo = mapper.map(data),
+                                error = ForecastErrors.OutdatedData
+                            )
+                    }
                 }
             }
         }
@@ -95,10 +98,12 @@ internal class ForecastViewModel @Inject constructor(
 
     private fun isPermissionsGranted(): Boolean {
         val hasAccessFineLocationPermission = ContextCompat.checkSelfPermission(
-            application, Manifest.permission.ACCESS_FINE_LOCATION
+            application,
+            Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
         val hasAccessCoarseLocationPermission = ContextCompat.checkSelfPermission(
-            application, Manifest.permission.ACCESS_COARSE_LOCATION
+            application,
+            Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
         return !(!hasAccessCoarseLocationPermission && !hasAccessFineLocationPermission)
     }

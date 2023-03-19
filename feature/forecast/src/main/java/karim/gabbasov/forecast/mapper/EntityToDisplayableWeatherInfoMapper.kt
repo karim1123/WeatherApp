@@ -150,7 +150,10 @@ internal class EntityToDisplayableWeatherInfoMapper @Inject constructor(
     private fun LocalDateTime.toDayOfWeek(): DayOfWeekNames {
         val currentTime = LocalDateTime.now()
         if (this.dayOfMonth == currentTime.dayOfMonth) return DayOfWeekNames.TODAY
-        return if (this.dayOfMonth == currentTime.plusDays(1).dayOfMonth) DayOfWeekNames.TOMORROW
-        else this.dayOfWeek.value.toDayOfWeekNames()
+        return if (this.dayOfMonth == currentTime.plusDays(1).dayOfMonth) {
+            DayOfWeekNames.TOMORROW
+        } else {
+            this.dayOfWeek.value.toDayOfWeekNames()
+        }
     }
 }

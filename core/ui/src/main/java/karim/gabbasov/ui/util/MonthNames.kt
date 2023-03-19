@@ -2,6 +2,7 @@ package karim.gabbasov.ui.util
 
 import karim.gabbasov.ui.R
 
+@Suppress("MagicNumber")
 enum class MonthNames {
     JANUARY {
         override val monthNameId = R.string.january
