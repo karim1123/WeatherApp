@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
+@Suppress("LongParameterList")
 class WeatherAppColors(
     background: Color,
     currentWeatherCard: Color,

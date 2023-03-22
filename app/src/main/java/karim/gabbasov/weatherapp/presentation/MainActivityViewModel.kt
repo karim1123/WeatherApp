@@ -2,8 +2,8 @@ package karim.gabbasov.weatherapp.presentation
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import karim.gabbasov.feature_api.features.DetailedForecastFeatureApi
-import karim.gabbasov.feature_api.features.ForecastFeatureApi
+import karim.gabbasov.api.features.DetailedForecastFeatureApi
+import karim.gabbasov.api.features.ForecastFeatureApi
 import javax.inject.Inject
 
 @HiltViewModel

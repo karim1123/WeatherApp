@@ -3,6 +3,7 @@ package karim.gabbasov.ui.util
 import karim.gabbasov.ui.R
 import javax.annotation.concurrent.Immutable
 
+@Suppress("MagicNumber")
 @Immutable
 enum class DayOfWeekNames {
     MONDAY {

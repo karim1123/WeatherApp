@@ -13,11 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import karim.gabbasov.designsystem.theme.LightGrey
 import karim.gabbasov.designsystem.theme.White
-import karim.gabbasov.ui.R
 import karim.gabbasov.forecast.model.HourlyWeatherData
+import karim.gabbasov.ui.R
+import karim.gabbasov.ui.model.WeatherType
 import karim.gabbasov.ui.util.MonthNames
 import karim.gabbasov.ui.util.WeatherCondition
-import karim.gabbasov.ui.model.WeatherType
 
 @Composable
 internal fun HourlyWeatherForecast(
@@ -71,6 +71,7 @@ internal fun HourlyWeatherForecast(
     }
 }
 
+@Suppress("LongMethod")
 @Preview(showBackground = true, backgroundColor = 0xFF102840)
 @Composable
 private fun PreviewHourlyWeatherForecast() {

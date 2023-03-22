@@ -1,7 +1,7 @@
 package karim.gabbasov.forecast.model
 
-import karim.gabbasov.ui.util.MonthNames
 import karim.gabbasov.ui.model.WeatherType
+import karim.gabbasov.ui.util.MonthNames
 
 internal sealed interface HourlyWeatherData {
     data class ElementsOfWeather(

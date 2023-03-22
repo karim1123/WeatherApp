@@ -57,8 +57,8 @@ internal class WeatherEntityMappers @Inject constructor() {
             )
         }.groupBy {
             it.index / HOURS_IN_DAY
-        }.mapValues { it ->
-            it.value.map { it.data }
+        }.mapValues { forecastMap ->
+            forecastMap.value.map { it.data }
         }
     }
 

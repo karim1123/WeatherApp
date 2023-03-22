@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import karim.gabbasov.designsystem.theme.LightGrey
 import karim.gabbasov.designsystem.theme.DarkRed
+import karim.gabbasov.designsystem.theme.LightGrey
 import karim.gabbasov.designsystem.theme.LightRed
 import karim.gabbasov.designsystem.theme.WeatherAppTheme
 import karim.gabbasov.designsystem.theme.White
@@ -57,6 +57,7 @@ internal fun ForecastScreenRoute(
     )
 }
 
+@Suppress("LongMethod")
 @Composable
 private fun ForecastScreen(
     forecastUiState: ForecastUiState,

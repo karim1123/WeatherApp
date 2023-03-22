@@ -77,7 +77,6 @@ fun CustomDialog(
                     .padding(top = 10.dp),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-
                 TextButton(onClick = {
                     openDialogCustom.value = false
                 }) {

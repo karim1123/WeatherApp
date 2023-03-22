@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import karim.gabbasov.feature_api.register
+import karim.gabbasov.api.register
 import karim.gabbasov.weatherapp.presentation.MainActivityViewModel
 
 @Composable

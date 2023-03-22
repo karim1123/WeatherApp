@@ -1,1 +1,0 @@
-C:\AndroidWeatherApp\buildSrc\build\classes\kotlin\main\DefaultConfig.class;C:\AndroidWeatherApp\buildSrc\build\classes\kotlin\main\Libs.class;C:\AndroidWeatherApp\buildSrc\build\classes\kotlin\main\Releases.class;C:\AndroidWeatherApp\buildSrc\build\classes\kotlin\main\Versions.class

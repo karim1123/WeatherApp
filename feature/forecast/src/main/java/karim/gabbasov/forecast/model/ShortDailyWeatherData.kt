@@ -1,8 +1,8 @@
 package karim.gabbasov.forecast.model
 
+import karim.gabbasov.ui.model.WeatherType
 import karim.gabbasov.ui.util.DayOfWeekNames
 import karim.gabbasov.ui.util.MonthNames
-import karim.gabbasov.ui.model.WeatherType
 
 internal sealed class ShortDailyWeatherData {
     internal class Weekend(

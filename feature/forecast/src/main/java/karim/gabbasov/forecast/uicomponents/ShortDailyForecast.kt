@@ -81,10 +81,10 @@ internal fun ShortDailyForecast(
     }
 }
 
+@Suppress("LongMethod", "LongParameterList")
 @Composable
 private fun ShorForecastForDay(
     weatherData: ShortForecastForDay,
-    modifier: Modifier = Modifier,
     textColor: Color,
     secondaryTextColor: Color,
     dayOfWeekColor: Color,
@@ -97,12 +97,10 @@ private fun ShorForecastForDay(
             .clip(RoundedCornerShape(14.dp))
             .clickable { onForecastDetails(index) },
         elevation = CardDefaults.cardElevation(10.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = WeatherAppTheme.colors.dailyForecastCard
-        )
+        colors = CardDefaults.cardColors(containerColor = WeatherAppTheme.colors.dailyForecastCard)
     ) {
         Row(
-            modifier
+            Modifier
                 .fillMaxWidth()
                 .height(60.dp),
             Arrangement.SpaceBetween,
@@ -186,6 +184,7 @@ private fun Temperature(
     }
 }
 
+@Suppress("LongMethod")
 @Preview
 @Composable
 private fun PreviewShortDailyForecast() {
