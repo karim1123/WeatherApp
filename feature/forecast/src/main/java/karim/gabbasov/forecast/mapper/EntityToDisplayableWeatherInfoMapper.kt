@@ -1,11 +1,13 @@
 package karim.gabbasov.forecast.mapper
 
 import karim.gabbasov.common.Mapper
+import karim.gabbasov.forecast.model.DateData
 import karim.gabbasov.forecast.model.DisplayableWeatherData
 import karim.gabbasov.forecast.model.DisplayableWeatherInfo
 import karim.gabbasov.forecast.model.HourlyWeatherData
 import karim.gabbasov.forecast.model.ShortDailyWeatherData
 import karim.gabbasov.forecast.model.ShortForecastForDay
+import karim.gabbasov.forecast.util.DayOfWeekUtil.toDayOfWeek
 import karim.gabbasov.model.data.weather.WeatherData
 import karim.gabbasov.model.data.weather.WeatherInfo
 import karim.gabbasov.ui.mapper.WeatherCodeAndDateToWeatherType
@@ -72,7 +74,8 @@ internal class EntityToDisplayableWeatherInfoMapper @Inject constructor(
         val lastIndex = hourlyForecast.lastIndex
         this.hourlyWeatherData[1]?.filter { it.time.hour <= currentHour }
             ?.forEach { weatherData ->
-                val tomorrowDate = LocalDateTime.now().plusDays(1)
+                val tomorrowDate =
+                    this.hourlyWeatherData.firstNotNullOf { it.value.first().time.plusDays(1) }
                 when (weatherData.time.hour) {
                     FIRST_HOUR_OF_NEW_DAY -> hourlyForecast.add(
                         index = lastIndex + 1,
@@ -97,25 +100,21 @@ internal class EntityToDisplayableWeatherInfoMapper @Inject constructor(
 
     private fun WeatherInfo.toShortDailyWeatherData(): List<ShortDailyWeatherData> {
         val dailyForecast = mutableListOf<ShortDailyWeatherData>()
+        val currentDate = this.hourlyWeatherData.firstNotNullOf { it.value.first().time }
         for (day in this.hourlyWeatherData) {
             val dayOfWeek = day.value[0].time.dayOfWeek.value.toDayOfWeekNames()
             if (dayOfWeek == DayOfWeekNames.SATURDAY || dayOfWeek == DayOfWeekNames.SUNDAY) {
                 dailyForecast.add(
                     ShortDailyWeatherData.Weekend(
-                        day.toShortForecastForDay()
+                        forecast = day.toShortForecastForDay(),
+                        dateData = day.toShortDateData(currentDate)
                     )
                 )
             } else {
                 dailyForecast.add(
                     ShortDailyWeatherData.CommonDay(
-                        ShortForecastForDay(
-                            dayOfMonth = day.value[0].time.dayOfMonth,
-                            monthName = day.value[0].time.monthValue.toMonthName(),
-                            dayOfWeek = day.value[0].time.toDayOfWeek(),
-                            weatherType = day.value.toMostSevereWeatherCondition(mapper),
-                            maxTemperature = day.value.maxOf { it.temperature },
-                            minTemperature = day.value.minOf { it.temperature }
-                        )
+                        forecast = day.toShortForecastForDay(),
+                        dateData = day.toShortDateData(currentDate)
                     )
                 )
             }
@@ -123,11 +122,18 @@ internal class EntityToDisplayableWeatherInfoMapper @Inject constructor(
         return dailyForecast
     }
 
-    private fun Map.Entry<Int, List<WeatherData>>.toShortForecastForDay(): ShortForecastForDay {
-        return ShortForecastForDay(
+    private fun Map.Entry<Int, List<WeatherData>>.toShortDateData(
+        currentTime: LocalDateTime
+    ): DateData {
+        return DateData(
             dayOfMonth = this.value[0].time.dayOfMonth,
             monthName = this.value[0].time.monthValue.toMonthName(),
-            dayOfWeek = this.value[0].time.toDayOfWeek(),
+            dayOfWeek = this.value[0].time.toDayOfWeek(currentTime)
+        )
+    }
+
+    private fun Map.Entry<Int, List<WeatherData>>.toShortForecastForDay(): ShortForecastForDay {
+        return ShortForecastForDay(
             weatherType = this.value.toMostSevereWeatherCondition(mapper),
             maxTemperature = this.value.maxOf { it.temperature },
             minTemperature = this.value.minOf { it.temperature }
@@ -145,15 +151,5 @@ internal class EntityToDisplayableWeatherInfoMapper @Inject constructor(
             humidity = current.humidity,
             weatherType = current.toWeatherType(mapper)
         )
-    }
-
-    private fun LocalDateTime.toDayOfWeek(): DayOfWeekNames {
-        val currentTime = LocalDateTime.now()
-        if (this.dayOfMonth == currentTime.dayOfMonth) return DayOfWeekNames.TODAY
-        return if (this.dayOfMonth == currentTime.plusDays(1).dayOfMonth) {
-            DayOfWeekNames.TOMORROW
-        } else {
-            this.dayOfWeek.value.toDayOfWeekNames()
-        }
     }
 }

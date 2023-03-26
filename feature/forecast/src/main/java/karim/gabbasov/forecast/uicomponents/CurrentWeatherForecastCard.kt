@@ -1,20 +1,25 @@
 package karim.gabbasov.forecast.uicomponents
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -22,6 +27,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import karim.gabbasov.designsystem.theme.DarkRed
 import karim.gabbasov.designsystem.theme.LightGrey
 import karim.gabbasov.designsystem.theme.WeatherAppTheme
 import karim.gabbasov.designsystem.theme.White
@@ -35,67 +41,95 @@ import karim.gabbasov.ui.util.WeatherCondition
 
 @Composable
 internal fun CurrentWeatherForecastCard(
-    currentWeather: DisplayableWeatherData,
-    hourlyWeather: List<HourlyWeatherData>,
+    currentWeather: DisplayableWeatherData?,
+    hourlyWeather: List<HourlyWeatherData>?,
+    isLoading: Boolean,
     textColor: Color,
-    secondTextColor: Color,
-    modifier: Modifier = Modifier
+    secondTextColor: Color
 ) {
-    Card(
-        shape = WeatherAppTheme.shapes.CurrentWeatherCard,
-        modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = WeatherAppTheme.colors.currentWeatherCard)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Top
-            ) {
-                Text(
-                    text = stringResource(
-                        temperature_in_celsius,
-                        currentWeather.temperatureCelsius
-                    ),
-                    color = textColor,
-                    fontSize = 50.sp
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Image(
-                    modifier = Modifier.defaultMinSize(minWidth = 90.dp, minHeight = 90.dp),
-                    imageVector = ImageVector.vectorResource(
-                        currentWeather.weatherType.iconRes
-                    ),
-                    contentDescription = stringResource(
-                        currentWeather.weatherType.weatherCondition.stringResId
-                    )
-                )
+    MainCard {
+        if (isLoading) {
+            Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
+                ProgressIndicator()
             }
-            Text(
-                text = stringResource(currentWeather.weatherType.weatherCondition.stringResId),
-                color = textColor,
-                style = WeatherAppTheme.typography.value
-            )
-            Text(
-                text = "${stringResource(feels_like)} ${
-                stringResource(temperature_in_celsius, currentWeather.feelsLike)
-                }",
-                color = secondTextColor,
-                style = WeatherAppTheme.typography.value
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-
-            HourlyWeatherForecast(
-                hourlyWeather = hourlyWeather,
-                textColor = textColor,
-                secondTextColor = secondTextColor
-            )
-            Spacer(modifier = Modifier.height(48.dp))
+        } else if (currentWeather != null && hourlyWeather != null) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Text(
+                        text = stringResource(
+                            temperature_in_celsius,
+                            currentWeather.temperatureCelsius
+                        ),
+                        color = textColor,
+                        fontSize = 50.sp
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Image(
+                        modifier = Modifier.defaultMinSize(minWidth = 90.dp, minHeight = 90.dp),
+                        imageVector = ImageVector.vectorResource(
+                            currentWeather.weatherType.iconRes
+                        ),
+                        contentDescription = stringResource(
+                            currentWeather.weatherType.weatherCondition.stringResId
+                        )
+                    )
+                }
+                Text(
+                    text = stringResource(currentWeather.weatherType.weatherCondition.stringResId),
+                    color = textColor,
+                    style = WeatherAppTheme.typography.value
+                )
+                Text(
+                    text = "${stringResource(feels_like)} ${
+                    stringResource(
+                        temperature_in_celsius,
+                        currentWeather.feelsLike
+                    )
+                    }",
+                    color = secondTextColor,
+                    style = WeatherAppTheme.typography.value
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                HourlyWeatherForecast(
+                    hourlyWeather = hourlyWeather,
+                    textColor = textColor,
+                    secondTextColor = secondTextColor
+                )
+                Spacer(modifier = Modifier.height(48.dp))
+            }
         }
+    }
+}
+
+@Composable
+private fun BoxScope.ProgressIndicator() {
+    Box(
+        modifier = Modifier
+            .size(40.dp)
+            .clip(CircleShape)
+            .background(White)
+            .align(Alignment.Center),
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(20.dp),
+            color = DarkRed,
+            strokeWidth = 3.dp
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewProgressIndicator() {
+    Box {
+        ProgressIndicator()
     }
 }
 
@@ -104,6 +138,7 @@ internal fun CurrentWeatherForecastCard(
 @Composable
 private fun PreviewWeatherForecastCard() {
     CurrentWeatherForecastCard(
+        isLoading = false,
         currentWeather = DisplayableWeatherData(
             hour = 12,
             temperatureCelsius = 11,

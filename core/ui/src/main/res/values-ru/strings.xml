@@ -74,7 +74,7 @@
     <string name="saturday_short">Сб</string>
     <string name="sunday">Воскресенье</string>
     <string name="sunday_short">Вс</string>
-    <string name="today">Сегодея</string>
+    <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
     <string name="max">Макс</string>
     <string name="min">Мин</string>
@@ -88,4 +88,10 @@
     <string name="humidity_title">Влажность</string>
     <string name="pressure_title">Давление</string>
     <string name="short_forecast_title">прогноз на 7 дней</string>
+    <string name="permission_dismiss_rational">Этому приложению необходим доступ к геолокации, чтобы показывать местный прогноз. Вы можете предоставить разрешение на определение местоположения в настройках или указать необходимую локацию вручную.</string>
+    <string name="permission_dismiss_title">Разрешение на местоположение не предоставлено</string>
+    <string name="grant_permission">Предоставить\nразрешение</string>
+    <string name="choose_location">Выбрать\nлокацию</string>
+    <string name="snackbar_network_request_error_content">При загрузке данных произошла ошибка. Пожалуйста, попробуйте снова.</string>
+    <string name="snackbar_location_request_error_content">При получении текущего местоположения произошла ошибка. Пожалуйста, попробуйте снова.</string>
 </resources>
