@@ -11,44 +11,20 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.MultiplePermissionsState
-import karim.gabbasov.designsystem.theme.WeatherAppTheme
 import karim.gabbasov.ui.R.string.allow_permission
 import karim.gabbasov.ui.R.string.dismiss_permission
 
-@OptIn(ExperimentalPermissionsApi::class)
-@Composable
-fun CustomPermissionDialog(
-    openDialogCustom: MutableState<Boolean>,
-    locationPermissionsState: MultiplePermissionsState,
-    rationalBody: String
-) {
-    Dialog(onDismissRequest = { openDialogCustom.value = false }) {
-        CustomDialog(
-            openDialogCustom = openDialogCustom,
-            locationPermissionsState = locationPermissionsState,
-            rationalBody = rationalBody,
-            contentColor = WeatherAppTheme.colors.requestPermissionCard,
-            textColor = WeatherAppTheme.colors.requestPermissionText
-        )
-    }
-}
-
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CustomDialog(
     modifier: Modifier = Modifier,
-    openDialogCustom: MutableState<Boolean>,
-    locationPermissionsState: MultiplePermissionsState,
+    onAllow: () -> Unit,
+    onDismiss: () -> Unit,
     rationalBody: String,
     contentColor: Color,
     textColor: Color
@@ -78,7 +54,7 @@ fun CustomDialog(
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 TextButton(onClick = {
-                    openDialogCustom.value = false
+                    onDismiss.invoke()
                 }) {
                     Text(
                         stringResource(dismiss_permission),
@@ -88,8 +64,7 @@ fun CustomDialog(
                     )
                 }
                 TextButton(onClick = {
-                    openDialogCustom.value = false
-                    locationPermissionsState.launchMultiplePermissionRequest()
+                    onAllow.invoke()
                 }) {
                     Text(
                         stringResource(allow_permission),

@@ -10,7 +10,6 @@ import karim.gabbasov.forecast.mapper.EntityToDisplayableWeatherInfoMapper
 import karim.gabbasov.forecast.model.DisplayableWeatherInfo
 import karim.gabbasov.model.data.weather.WeatherInfo
 
-@Suppress("UnusedPrivateClass")
 @Module
 @InstallIn(ViewModelComponent::class)
 internal interface MapperModule {

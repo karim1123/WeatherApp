@@ -88,4 +88,10 @@
     <string name="humidity_title">Humidity</string>
     <string name="pressure_title">Pressure</string>
     <string name="short_forecast_title">7 day forecast</string>
+    <string name="permission_dismiss_rational">This app needs access to geolocation in order to show the local forecast. You can grant permission for location in the settings or specify the desired location manually.</string>
+    <string name="permission_dismiss_title">Location permission not granted</string>
+    <string name="grant_permission">Grant\npermission</string>
+    <string name="choose_location">Choose\nlocation</string>
+    <string name="snackbar_network_request_error_content">An error occurred while loading data. Please try again.</string>
+    <string name="snackbar_location_request_error_content">An error occurred while getting the current location. Please try again.</string>
 </resources>
