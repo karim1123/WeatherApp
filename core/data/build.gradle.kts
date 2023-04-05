@@ -11,8 +11,7 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:database"))
     implementation(project(":core:model"))
-
-    implementation(libs.sandwich)
+    implementation(project(":core:common"))
 
     implementation(libs.locationService)
 

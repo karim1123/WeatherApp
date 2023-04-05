@@ -1,11 +1,13 @@
 package karim.gabbasov.data
 
 import com.skydoves.sandwich.ApiResponse
-import io.mockk.mockk
+import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.just
-import io.mockk.Runs
+import io.mockk.mockk
+import karim.gabbasov.common.util.AppCoroutineDispatchers
 import karim.gabbasov.data.mapper.WeatherEntityMappers
 import karim.gabbasov.data.repository.WeatherApiResult
 import karim.gabbasov.data.repository.WeatherRepositoryImpl
@@ -14,9 +16,11 @@ import karim.gabbasov.network.WeatherApi
 import karim.gabbasov.network.model.WeatherDataDto
 import karim.gabbasov.network.model.WeatherDto
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
 
@@ -25,7 +29,13 @@ class WeatherRepositoryTest {
     private val weatherApi = mockk<WeatherApi>()
     private val weatherDao = mockk<WeatherForecastDao>()
     private val mapper = mockk<WeatherEntityMappers>()
-    private val repository = WeatherRepositoryImpl(weatherApi, weatherDao, mapper)
+    private val dispatchers = mockk<AppCoroutineDispatchers>()
+    private val repository = WeatherRepositoryImpl(weatherApi, weatherDao, mapper, dispatchers)
+
+    @Before
+    fun setUp() {
+        every { dispatchers.io } returns UnconfinedTestDispatcher()
+    }
 
     @Test
     fun `refreshWeather should insert data into weatherDao when API response is successful`() =

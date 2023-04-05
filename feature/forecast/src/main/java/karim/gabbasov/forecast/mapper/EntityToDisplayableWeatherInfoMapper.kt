@@ -134,7 +134,10 @@ internal class EntityToDisplayableWeatherInfoMapper @Inject constructor(
 
     private fun Map.Entry<Int, List<WeatherData>>.toShortForecastForDay(): ShortForecastForDay {
         return ShortForecastForDay(
-            weatherType = this.value.toMostSevereWeatherCondition(mapper),
+            weatherType = this.value.toMostSevereWeatherCondition(
+                mapper = mapper,
+                ignoreNight = true
+            ),
             maxTemperature = this.value.maxOf { it.temperature },
             minTemperature = this.value.minOf { it.temperature }
         )

@@ -21,7 +21,6 @@ import karim.gabbasov.forecast.mapper.EntityToDisplayableWeatherInfo
 import karim.gabbasov.forecast.util.CheckGpsUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -104,7 +103,7 @@ internal class ForecastViewModel @Inject constructor(
         )
     }
 
-    private fun loadWeatherInfo() = viewModelScope.launch(dispatcher.io) {
+    private fun loadWeatherInfo() = viewModelScope.launch(dispatcher.main) {
         if (
             state.isPermissionGranted && state.isGPSEnabled && state.isInternetConnectionAvailable
         ) {
@@ -134,23 +133,12 @@ internal class ForecastViewModel @Inject constructor(
     private suspend fun getWeather(lat: Double, long: Double) {
         when (repository.refreshWeather(lat, long)) {
             is WeatherApiResult.Success -> {
-                getWeatherRequestSucceed()
+                getWeatherFromBd()
             }
             else -> {
                 getWeatherRequestFailed()
             }
         }
-    }
-
-    private suspend fun getWeatherRequestSucceed() {
-        repository.weather.flowOn(dispatcher.io)
-            .collect { data ->
-                state = state.copy(
-                    weatherInfo = mapper.map(data),
-                    isLoading = false,
-                    isDataOutdated = false
-                )
-            }
     }
 
     private suspend fun getWeatherRequestFailed() {
@@ -160,15 +148,15 @@ internal class ForecastViewModel @Inject constructor(
                 isLoading = false
             )
         } else {
+            state = state.copy(isDataOutdated = true)
             getWeatherFromBd()
         }
     }
 
     private suspend fun getWeatherFromBd() {
-        repository.weather.flowOn(dispatcher.io).collect { data ->
+        repository.weather.collect { data ->
             state = state.copy(
                 weatherInfo = mapper.map(data),
-                isDataOutdated = true,
                 isLoading = false
             )
         }

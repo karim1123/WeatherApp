@@ -53,7 +53,10 @@ internal class EntityToDisplayableDailyWeatherInfoMapper @Inject constructor(
     private fun List<WeatherData>
     .toDisplayableDailyWeatherData(): DisplayableDailyWeatherDataByTimeOfDay {
         val weatherType = timeRanges.map { range ->
-            this.slice(range).toMostSevereWeatherCondition(mapper)
+            this.slice(range).toMostSevereWeatherCondition(
+                mapper = mapper,
+                ignoreNight = false
+            )
         }.toImmutableList()
         val tabData = Pair(
             this[0].time.dayOfMonth,

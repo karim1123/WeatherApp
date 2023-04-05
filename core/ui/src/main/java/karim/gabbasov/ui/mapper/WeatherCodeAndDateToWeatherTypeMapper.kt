@@ -132,7 +132,7 @@ internal class WeatherCodeAndDateToWeatherTypeMapper @Inject constructor() :
                 } else {
                     WeatherType(
                         weatherCondition = weatherCodeToWeatherCondition(fromObject.first),
-                        iconRes = R.drawable.rainy_2_day
+                        iconRes = R.drawable.rainy_2_night
                     )
                 }
             }

@@ -4,18 +4,21 @@ import android.location.Location
 import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
+import karim.gabbasov.common.util.AppCoroutineDispatchers
 import karim.gabbasov.model.data.Coordinates
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
 internal class LocationTrackerImpl @Inject constructor(
-    private val locationClient: FusedLocationProviderClient
+    private val locationClient: FusedLocationProviderClient,
+    private val dispatcher: AppCoroutineDispatchers
 ) : LocationTracker {
 
-    override suspend fun getLocation(): LocationResult {
+    override suspend fun getLocation(): LocationResult = withContext(dispatcher.io) {
         val lastKnownLocation = getLastKnownLocation()
-        return if (lastKnownLocation != null) {
+        return@withContext if (lastKnownLocation != null) {
             LocationResult.Success(lastKnownLocation)
         } else {
             LocationResult.UnknownError
