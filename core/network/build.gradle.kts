@@ -11,5 +11,5 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.moshi)
     implementation(libs.interceptor)
-    implementation(libs.sandwich)
+    api(libs.sandwich)
 }

@@ -11,16 +11,16 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 internal class DetailedForecastViewModel @Inject constructor(
     private val repository: WeatherRepository,
     private val dispatcher: AppCoroutineDispatchers,
-    private val mapper: EntityToDisplayableDailyWeatherInfo,
+    private val mapper: EntityToDisplayableDailyWeatherInfo
 ) : ViewModel() {
 
     private val _detailedForecastInfo: MutableStateFlow<UIState> = MutableStateFlow(
@@ -29,22 +29,25 @@ internal class DetailedForecastViewModel @Inject constructor(
     val detailedForecastInfo = _detailedForecastInfo.asStateFlow()
 
     init {
-        getWeather()
+        viewModelScope.launch(dispatcher.main) {
+            getWeather()
+        }
     }
 
-    private fun getWeather() = viewModelScope.launch {
-        repository.weather.flowOn(dispatcher.io).collect { data ->
+    private suspend fun getWeather() {
+        repository.weather.collect { data ->
             _detailedForecastInfo.update {
                 UIState(
                     forecastData = mapper.map(data),
                     drawPager = false
                 )
             }
+            drawPager()
         }
     }
 
     @Suppress("MagicNumber")
-    fun drawPager() = viewModelScope.launch {
+    suspend fun drawPager() = withContext(dispatcher.io) {
         if (detailedForecastInfo.value.forecastData != null) {
             delay(200)
             _detailedForecastInfo.update { _detailedForecastInfo.value.copy(drawPager = true) }

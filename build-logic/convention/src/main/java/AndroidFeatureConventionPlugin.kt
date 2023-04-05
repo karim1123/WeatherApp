@@ -31,7 +31,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("composeRuntime").get())
                 add("implementation", libs.findLibrary("composeLifecycleViewModel").get())
                 add("implementation", libs.findLibrary("immutableCollections").get())
-                add("implementation", libs.findLibrary("hiltNavigationCompose").get())
 
                 add("debugImplementation", libs.findLibrary("composeTestingUiTooling").get())
             }

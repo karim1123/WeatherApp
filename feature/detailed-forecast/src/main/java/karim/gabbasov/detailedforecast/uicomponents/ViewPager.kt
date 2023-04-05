@@ -20,7 +20,6 @@ import karim.gabbasov.ui.util.WeatherCondition
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
-private const val ONE_PAGE = 1
 private const val ALL_PAGES = 7
 
 /**
@@ -33,14 +32,12 @@ private const val ALL_PAGES = 7
 @Composable
 internal fun ViewPager(
     detailedForecast: ImmutableList<DisplayableDailyWeatherDataByTimeOfDay>,
-    pagerState: PagerState,
-    isInit: Boolean,
-    onIsInitChange: () -> Unit
+    pagerState: PagerState
 ) {
     HorizontalPager(
         pageCount = detailedForecast.size,
         state = pagerState,
-        beyondBoundsPageCount = if (isInit) ONE_PAGE else ALL_PAGES
+        beyondBoundsPageCount = ALL_PAGES
     ) { page ->
         Column(modifier = Modifier.fillMaxSize()) {
             DailyTemperature(dailyForecast = detailedForecast[page])
@@ -52,7 +49,6 @@ internal fun ViewPager(
             DailyPressure(detailedForecast[page].pressure)
         }
     }
-    if (isInit) onIsInitChange.invoke()
 }
 
 @Suppress("LongMethod")
@@ -145,8 +141,6 @@ private fun PreviewViewPager() {
     )
     ViewPager(
         detailedForecast = weatherData,
-        pagerState = rememberPagerState(3),
-        isInit = false,
-        onIsInitChange = {}
+        pagerState = rememberPagerState(3)
     )
 }

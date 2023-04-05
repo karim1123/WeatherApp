@@ -9,9 +9,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,8 +35,7 @@ internal fun DetailedForecastScreenRoute(
     DetailedForecastScreen(
         chosenPage = chosenPage,
         detailedForecast = detailedForecast,
-        onBack = { navController.popBackStack() },
-        drawPager = { viewModel.drawPager() }
+        onBack = { navController.popBackStack() }
     )
 }
 
@@ -48,13 +44,11 @@ internal fun DetailedForecastScreenRoute(
 private fun DetailedForecastScreen(
     chosenPage: Int,
     detailedForecast: UIState,
-    onBack: () -> Unit,
-    drawPager: () -> Unit
+    onBack: () -> Unit
 ) {
     if (detailedForecast.forecastData != null) {
         val tabData = detailedForecast.forecastData.map { it.tabData }
         val pagerState = rememberPagerState(initialPage = chosenPage)
-        var isInit by rememberSaveable { mutableStateOf(true) }
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = { TopBar(onBack = onBack) }
@@ -72,12 +66,8 @@ private fun DetailedForecastScreen(
                 if (detailedForecast.drawPager) {
                     ViewPager(
                         detailedForecast = detailedForecast.forecastData,
-                        pagerState = pagerState,
-                        isInit = isInit,
-                        onIsInitChange = { isInit = false }
+                        pagerState = pagerState
                     )
-                } else {
-                    drawPager.invoke()
                 }
             }
         }
@@ -177,7 +167,6 @@ private fun PreviewDetailedForecastScreen() {
             forecastData = weatherData,
             drawPager = true
         ),
-        onBack = {},
-        drawPager = {}
+        onBack = {}
     )
 }
