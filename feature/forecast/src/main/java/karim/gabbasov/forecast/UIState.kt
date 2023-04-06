@@ -18,7 +18,8 @@ internal data class UIState(
     val isDataOutdated: Boolean,
     val isLoading: Boolean,
     val networkRequestFailed: Boolean,
-    val locationRequestFailed: Boolean
+    val locationRequestFailed: Boolean,
+    val showNowInternetConnectionError: Boolean
 ) {
     internal companion object {
         internal fun getInitialUIState(app: Application): UIState {
@@ -44,7 +45,8 @@ internal data class UIState(
                 isDataOutdated = false,
                 isLoading = false,
                 networkRequestFailed = false,
-                locationRequestFailed = false
+                locationRequestFailed = false,
+                showNowInternetConnectionError = false
             )
         }
     }

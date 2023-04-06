@@ -71,7 +71,7 @@ internal fun LocationPermission(
         isDismissed.value -> {
             PermissionDismissedCard(onGoToAppSettingsClick)
         }
-        !locationPermissionsState.shouldShowRationale -> {
+        !locationPermissionsState.shouldShowRationale && !isDismissed.value -> {
             val openDialogCustom = remember { mutableStateOf(true) }
 
             ForecastScreenContent(

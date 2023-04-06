@@ -104,7 +104,7 @@ private fun ForecastScreen(
                     iconDescription = stringResource(R.string.gps_off_title)
                 )
             }
-            !uiState.isInternetConnectionAvailable && uiState.networkRequestFailed -> {
+            uiState.showNowInternetConnectionError -> {
                 ErrorCard(
                     onClick = onCheckIsInternetConnectionStatus,
                     title = stringResource(R.string.no_network_error_title),

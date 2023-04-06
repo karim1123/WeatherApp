@@ -39,6 +39,7 @@ import karim.gabbasov.ui.R.string.temperature_in_celsius
 import karim.gabbasov.ui.model.WeatherType
 import karim.gabbasov.ui.util.WeatherCondition
 
+@Suppress("LongMethod")
 @Composable
 internal fun CurrentWeatherForecastCard(
     currentWeather: DisplayableWeatherData?,
@@ -49,7 +50,11 @@ internal fun CurrentWeatherForecastCard(
 ) {
     MainCard {
         if (isLoading) {
-            Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+            ) {
                 ProgressIndicator()
             }
         } else if (currentWeather != null && hourlyWeather != null) {
@@ -102,6 +107,8 @@ internal fun CurrentWeatherForecastCard(
                 )
                 Spacer(modifier = Modifier.height(48.dp))
             }
+        } else {
+            Spacer(modifier = Modifier.height(300.dp))
         }
     }
 }
