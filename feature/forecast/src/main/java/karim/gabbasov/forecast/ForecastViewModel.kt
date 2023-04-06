@@ -112,7 +112,7 @@ internal class ForecastViewModel @Inject constructor(
         } else if (
             state.isPermissionGranted && state.isGPSEnabled && !state.isInternetConnectionAvailable
         ) {
-            getWeatherRequestFailed()
+            getWeatherWithoutInternetConnection()
         }
     }
 
@@ -133,9 +133,14 @@ internal class ForecastViewModel @Inject constructor(
     private suspend fun getWeather(lat: Double, long: Double) {
         when (repository.refreshWeather(lat, long)) {
             is WeatherApiResult.Success -> {
+                state = state.copy(
+                    isDataOutdated = false,
+                    networkRequestFailed = false
+                )
                 getWeatherFromBd()
             }
             else -> {
+                state = state.copy(networkRequestFailed = true)
                 getWeatherRequestFailed()
             }
         }
@@ -143,9 +148,17 @@ internal class ForecastViewModel @Inject constructor(
 
     private suspend fun getWeatherRequestFailed() {
         if (repository.isBdEmpty()) {
+            state = state.copy(isLoading = false)
+        } else {
+            getWeatherFromBd()
+        }
+    }
+
+    private suspend fun getWeatherWithoutInternetConnection() {
+        if (repository.isBdEmpty()) {
             state = state.copy(
-                networkRequestFailed = true,
-                isLoading = false
+                isLoading = false,
+                showNowInternetConnectionError = true
             )
         } else {
             state = state.copy(isDataOutdated = true)

@@ -24,8 +24,8 @@
     <string name="now">сейчас</string>
     <string name="temperature_in_celsius">%1$d°C</string>
     <string name="feels_like">Ощущается как: </string>
-    <string name="pressure_in_hpa">hpa</string>
-    <string name="wind_speed_in_km">km/h</string>
+    <string name="pressure_in_hpa">гПа</string>
+    <string name="wind_speed_in_km">км/ч</string>
     <string name="hour">%1$d:00</string>
     <string name="update">ОБНОВИТЬ</string>
     <string name="snackbar_network_error_content">Данные устарели. Проверьте подключение к Интернету.</string>

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -42,7 +43,7 @@ internal fun MainCard(
                 Brush.verticalGradient(listOf(LightCurrentWeatherCard, DarkCurrentWeatherCard))
             )
     ) {
-        content.invoke()
+        content()
     }
 }
 
@@ -90,7 +91,10 @@ private fun PreviewMainCard() {
 @Composable
 private fun PreviewMainCardErrorInfo() {
     MainCard {
-        Column {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             MainCardErrorInfo(
                 title = stringResource(R.string.gps_off_title),
                 errorMessage = stringResource(R.string.gps_error_message),
