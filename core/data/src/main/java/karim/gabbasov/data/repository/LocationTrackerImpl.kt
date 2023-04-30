@@ -5,7 +5,7 @@ import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
 import karim.gabbasov.common.util.AppCoroutineDispatchers
-import karim.gabbasov.model.data.Coordinates
+import karim.gabbasov.model.data.location.Coordinates
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

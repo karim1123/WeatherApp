@@ -7,7 +7,7 @@ import karim.gabbasov.data.mapper.WeatherEntityMappers
 import karim.gabbasov.database.WeatherForecastDao
 import karim.gabbasov.model.data.weather.WeatherInfo
 import karim.gabbasov.network.WeatherApi
-import karim.gabbasov.network.model.WeatherDto
+import karim.gabbasov.network.model.weather.WeatherDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map

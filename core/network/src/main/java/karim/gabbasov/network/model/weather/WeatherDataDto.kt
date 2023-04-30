@@ -1,4 +1,4 @@
-package karim.gabbasov.network.model
+package karim.gabbasov.network.model.weather
 
 import com.squareup.moshi.Json
 

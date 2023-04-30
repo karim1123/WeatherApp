@@ -2,7 +2,7 @@ package karim.gabbasov.data
 
 import karim.gabbasov.data.mapper.WeatherEntityMappers
 import karim.gabbasov.database.WeatherForecastEntity
-import karim.gabbasov.network.model.WeatherDataDto
+import karim.gabbasov.network.model.weather.WeatherDataDto
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

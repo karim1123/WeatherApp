@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import karim.gabbasov.network.LocationApi
 import karim.gabbasov.network.RequestInterceptor
 import karim.gabbasov.network.WeatherApi
 import okhttp3.OkHttpClient
@@ -31,6 +32,18 @@ private object NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://api.open-meteo.com/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
+            .build()
+            .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationApi(okHttpClient: OkHttpClient): LocationApi {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://suggestions.dadata.ru/")
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .build()

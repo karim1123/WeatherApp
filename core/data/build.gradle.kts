@@ -5,6 +5,16 @@ plugins {
 
 android {
     namespace = "karim.gabbasov.data"
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    defaultConfig {
+        with(com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir)) {
+            buildConfigField("String", "DADATA_API_KEY", getProperty("DADATA_API_KEY"))
+        }
+    }
 }
 
 dependencies {

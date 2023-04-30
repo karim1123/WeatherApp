@@ -1,7 +1,7 @@
 package karim.gabbasov.network
 
 import com.skydoves.sandwich.ApiResponse
-import karim.gabbasov.network.model.WeatherDto
+import karim.gabbasov.network.model.weather.WeatherDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
