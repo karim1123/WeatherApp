@@ -19,8 +19,8 @@ internal fun Project.configureAndroidKotlin(
         }
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
         }
 
         kotlinOptions {
@@ -37,10 +37,10 @@ internal fun Project.configureAndroidKotlin(
                 "-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi",
             )
 
-            jvmTarget = JavaVersion.VERSION_11.toString()
+            jvmTarget = JavaVersion.VERSION_17.toString()
 
             tasks.withType(org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs::class.java).configureEach {
-                compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
+                compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
             }
         }
     }

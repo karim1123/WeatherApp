@@ -3,7 +3,7 @@ package karim.gabbasov.data.mapper
 import karim.gabbasov.database.WeatherForecastEntity
 import karim.gabbasov.model.data.weather.WeatherData
 import karim.gabbasov.model.data.weather.WeatherInfo
-import karim.gabbasov.network.model.WeatherDataDto
+import karim.gabbasov.network.model.weather.WeatherDataDto
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject

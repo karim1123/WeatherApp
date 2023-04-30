@@ -12,4 +12,6 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.interceptor)
     api(libs.sandwich)
+
+    implementation(project(":core:model"))
 }

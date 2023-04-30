@@ -13,8 +13,8 @@ import karim.gabbasov.data.repository.WeatherApiResult
 import karim.gabbasov.data.repository.WeatherRepositoryImpl
 import karim.gabbasov.database.WeatherForecastDao
 import karim.gabbasov.network.WeatherApi
-import karim.gabbasov.network.model.WeatherDataDto
-import karim.gabbasov.network.model.WeatherDto
+import karim.gabbasov.network.model.weather.WeatherDataDto
+import karim.gabbasov.network.model.weather.WeatherDto
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import okhttp3.MediaType

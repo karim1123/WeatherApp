@@ -1,4 +1,4 @@
-package karim.gabbasov.model.data
+package karim.gabbasov.model.data.location
 
 data class Coordinates(
     val latitude: Double,
